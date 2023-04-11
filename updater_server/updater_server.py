@@ -53,5 +53,22 @@ def download():
 
     return jsonify({'message': 'Files downloaded successfully'}), 200
 
+@app.route('/delete', methods=['DELETE'])
+def delete():
+    # Get the filename from the request
+    filename = request.args.get('filename')
+    if not filename:
+        return jsonify({'message': 'No filename provided'}), 400
+
+    # Remove the file from the uploads directory
+    file_path = os.path.join('uploads', filename)
+    try:
+        os.remove(file_path)
+    except OSError as e:
+        return jsonify({'message': f'Failed to delete file: {str(e)}'}), 500
+
+    return jsonify({'message': 'File deleted successfully'}), 200
+
+
 if __name__ == '__main__':
     app.run(port=data["server"]["port"])
