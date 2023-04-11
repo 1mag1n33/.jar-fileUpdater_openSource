@@ -1,0 +1,3 @@
+client:
+  mod-folder: 'C:\Users\benja\OneDrive\Desktop\test\client\mod'
+  url: http://localhost:5000

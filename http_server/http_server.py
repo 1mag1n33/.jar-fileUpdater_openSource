@@ -46,28 +46,15 @@ def download():
     destination = destination.replace('\\', '/')
 
     # Copy all files in the uploads folder to the destination folder
+    uploaded_files = []
     for file_path in glob.glob('uploads/*'):
         file_name = os.path.basename(file_path)
         destination_path = os.path.join(destination, file_name)
         shutil.copy(file_path, destination_path)
+        uploaded_files.append(file_name)
 
-    return jsonify({'message': 'Files downloaded successfully'}), 200
+    return jsonify({'message': 'Files downloaded successfully', 'files': uploaded_files}), 200
 
-@app.route('/delete', methods=['DELETE'])
-def delete():
-    # Get the filename from the request
-    filename = request.args.get('filename')
-    if not filename:
-        return jsonify({'message': 'No filename provided'}), 400
-
-    # Remove the file from the uploads directory
-    file_path = os.path.join('uploads', filename)
-    try:
-        os.remove(file_path)
-    except OSError as e:
-        return jsonify({'message': f'Failed to delete file: {str(e)}'}), 500
-
-    return jsonify({'message': 'File deleted successfully'}), 200
 
 
 if __name__ == '__main__':

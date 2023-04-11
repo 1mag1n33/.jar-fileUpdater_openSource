@@ -18,19 +18,30 @@ server_url = data["client"]["url"]
 destination = data["client"]["mod-folder"]
 
 # Send the request to the server to get the list of uploaded files
-response = requests.get(server_url + '/uploads', params={'destination': destination})
+response = requests.get(server_url + '/download', params={'destination': destination})
+print(server_url)
+print(response.content)
 if response.status_code == 200:
     uploaded_files = response.json()['files']
 else:
     print(f"Error {response.status_code}: {response.reason}")
     exit(1)
 
-# Delete files that are not in the uploads folder
-for root, dirs, files in os.walk(destination):
-    for file in files:
-        if file not in uploaded_files:
-            file_path = os.path.join(root, file)
-            os.remove(file_path)
-            print(f"{file_path} has been deleted.")
 
-print("Finished deleting files.")
+
+# Download files that are in the uploads folder but not in the destination folder
+for file in uploaded_files:
+    file_path = os.path.join(destination, file)
+    if not os.path.exists(file_path):
+        download_url = server_url + f"/downloads/{file}"
+        response = requests.get(download_url)
+        if response.status_code == 200:
+            with open(file_path, 'wb') as file:
+                file.write(response.content)
+            print(f"{file_path} has been downloaded.")
+        else:
+            print(f"Error {response.status_code}: {response.reason}")
+    else:
+        print(f"{file_path} already exists in the destination folder.")
+
+print("Finished downloading files.")
