@@ -1,6 +1,6 @@
 template = {
     "client": {
-        "url": "http://localhost:5000/download",
+        "url": "http://localhost:5000",
         "mod-folder": ""
     }
 }

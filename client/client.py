@@ -21,6 +21,7 @@ destination = data["client"]["mod-folder"]
 response = requests.get(server_url + '/download', params={'destination': destination})
 print(server_url)
 print(response.content)
+
 if response.status_code == 200:
     uploaded_files = response.json()['files']
 else:
