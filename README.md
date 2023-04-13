@@ -21,7 +21,8 @@ Install the requirments by running the following command in your terminal or com
 # Usage
 
 Run the server by running python http_server.py in your terminal or command prompt. This will start the Flask server on port 5000.
-In another terminal or command prompt window, run the client by running python client.py. This will connect to the server and update the .jar files in the specified directory.
+In another terminal or command prompt window, run the client by running python client.py edit the config.yaml specifiy where u want your .jar files to be copyed to, Then run server.py in the config.yaml specifiy the location of your .jar files. This will connect to the server and update the .jar files in the upload directory in the http_server folder, Then it will download the .jar files in the specified directory.
+
 You can customize the settings in config.yaml to change the directory to update, the URL of the server, and other settings.
 
 # Contributing
