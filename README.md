@@ -1,4 +1,4 @@
-# .jar File Updater
+# .jar-fileUpdater_openSource
 
 This is a simple Python script for updating .jar files in a directory. It communicates with a server over HTTP to retrieve a list of files to download and update.
 
